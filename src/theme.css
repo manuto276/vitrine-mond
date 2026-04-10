@@ -1,0 +1,37 @@
+/* ── Vitrine Default Theme — Conky-inspired, Dracula palette ───── */
+
+@font-face {
+    font-family: "Bebas Neue";
+    src: url('./assets/fonts/BebasNeue-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+.vitrine-container {
+    position: fixed;
+    box-sizing: border-box;
+    padding: 48px;
+    pointer-events: none;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 12px;
+    color: #f8f8f2;
+    user-select: none;
+}
+
+.vitrine-title {
+    font-size: 90px;
+    text-transform: uppercase;
+    line-height: 0.9;
+}
+
+.vitrine-info {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.vitrine-info-label {
+    font-size: 20px;
+    color: #f8f8f2;
+    text-transform: uppercase;
+    margin-top: -16px;
+}

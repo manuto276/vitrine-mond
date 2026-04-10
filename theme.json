@@ -1,0 +1,5 @@
+{
+  "name": "Serbas",
+  "description": "Classic Conky-style system monitor",
+  "entry": "theme.js"
+}
