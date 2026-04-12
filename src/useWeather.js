@@ -59,6 +59,7 @@ const POLL_INTERVAL = 5 * 60 * 1000;
 export function useWeather({ enabled, city, unit }) {
     const [weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
+    const [lastUpdated, setLastUpdated] = useState(null);
     const coordsRef = useRef(null);
     const prevCityRef = useRef(null);
 
@@ -94,6 +95,7 @@ export function useWeather({ enabled, city, unit }) {
 
                 if (!cancelled) {
                     setWeather({
+                        code:        c.weather_code,
                         description: WEATHER_CODES[c.weather_code] ?? 'unknown',
                         temperature: Math.round(c.temperature_2m),
                         feelsLike:   Math.round(c.apparent_temperature),
@@ -101,6 +103,7 @@ export function useWeather({ enabled, city, unit }) {
                         max:         Math.round(data.daily.temperature_2m_max[0]),
                         min:         Math.round(data.daily.temperature_2m_min[0]),
                     });
+                    setLastUpdated(new Date());
                     setError(null);
                 }
             } catch (e) {
@@ -120,5 +123,5 @@ export function useWeather({ enabled, city, unit }) {
         };
     }, [enabled, city, unit]);
 
-    return { weather, error };
+    return { weather, error, lastUpdated };
 }

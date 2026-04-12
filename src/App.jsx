@@ -117,18 +117,30 @@ const WEATHER_ICON_MAP = {
 
 /* ── weather block ───────────────────────────────────────────────── */
 
-function WeatherBlock({ city, weather, error, unit, isRight }) {
+function WeatherBlock({ city, weather, error, lastUpdated, unit, isRight }) {
     const symbol = unit === 'fahrenheit' ? '°F' : '°C';
     const align = isRight ? 'flex-end' : 'flex-start';
+    const colStyle = { flexDirection: 'column', alignItems: align };
 
-    if (error)    return (
-        <div className="vitrine-weather" style={{ flexDirection: 'column', alignItems: align }}>
+    const updatedAt = lastUpdated
+        ? lastUpdated.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
+        : null;
+
+    const footer = error
+        ? (updatedAt ? `Network unavailable · Updated at ${updatedAt}` : 'Network unavailable')
+        : (updatedAt ? `Updated at ${updatedAt}` : null);
+
+    // No cached data and error → full error state
+    if (!weather && error) return (
+        <div className="vitrine-weather" style={colStyle}>
             <IconCloudOff size={32} strokeWidth={1.5} />
             <p>Weather unavailable</p>
         </div>
     );
+
+    // No data yet → loading state
     if (!weather) return (
-        <div className="vitrine-weather" style={{ flexDirection: 'column', alignItems: align }}>
+        <div className="vitrine-weather" style={colStyle}>
             <IconLoader2 size={32} strokeWidth={1.5} />
             <p>Loading weather…</p>
         </div>
@@ -137,13 +149,14 @@ function WeatherBlock({ city, weather, error, unit, isRight }) {
     const WeatherIcon = WEATHER_ICON_MAP[weather.code] ?? IconCloud;
 
     return (
-        <div className="vitrine-weather" style={{ alignItems: align }}>
+        <div className="vitrine-weather" style={colStyle}>
             <WeatherIcon size={32} strokeWidth={1.5} />
             <p>
                 Today weather in {city}<br />
                 is {weather.description} with temperature {weather.temperature}{symbol}<br />
                 it feels like {weather.feelsLike}{symbol}, and humidity is {weather.humidity}%
             </p>
+            {footer && <p className="vitrine-weather-last-updated">{footer}</p>}
         </div>
     );
 }
@@ -153,7 +166,7 @@ function WeatherBlock({ city, weather, error, unit, isRight }) {
 export default function App() {
     const info = useSystemInfo();
     const settings = useSettings();
-    const { weather, error: weatherError } = useWeather({
+    const { weather, error: weatherError, lastUpdated } = useWeather({
         enabled: settings.showWeather,
         city: settings.weatherCity,
         unit: settings.temperatureUnit,
@@ -192,6 +205,7 @@ export default function App() {
                     city={settings.weatherCity}
                     weather={weather}
                     error={weatherError}
+                    lastUpdated={lastUpdated}
                     unit={settings.temperatureUnit}
                     isRight={isRight}
                 />
