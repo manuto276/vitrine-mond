@@ -1,5 +1,7 @@
 {
   "name": "Serbas",
   "description": "Classic Conky-style system monitor",
-  "entry": "theme.js"
+  "entry": "theme.js",
+  "version": "1.0.0",
+  "author": "Emanuele Frascella"
 }

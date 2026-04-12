@@ -1,2 +1,3 @@
 FROM node:20-alpine
+RUN apk add --no-cache zip
 WORKDIR /app
