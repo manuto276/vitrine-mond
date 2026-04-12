@@ -1,8 +1,11 @@
 const defaults = {
     theme: 'dark',
     accentColor: '#40C4FF',
-    showBattery: true,
     alignment: 'left',
+    showWeather: false,
+    weatherCity: '',
+    temperatureUnit: 'celsius',
+    showBattery: true,
 };
 
 export function useSettings() {

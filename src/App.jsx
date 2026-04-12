@@ -1,7 +1,14 @@
 import React from 'react';
-import { IconBattery, IconBattery1, IconBattery2, IconBattery3, IconBattery4, IconBatteryCharging, IconCpu, IconBlocks } from '@tabler/icons-react';
+import {
+    IconBattery, IconBattery1, IconBattery2, IconBattery3, IconBattery4, IconBatteryCharging,
+    IconCpu, IconBlocks,
+    IconSun, IconSunHigh, IconCloud, IconMist,
+    IconCloudRain, IconCloudSnow, IconCloudStorm, IconCloudBolt, IconSnowflake,
+    IconCloudOff, IconLoader2,
+} from '@tabler/icons-react';
 import { useSystemInfo } from './useSystemInfo';
 import { useSettings } from './useSettings';
+import { useWeather } from './useWeather';
 
 /* ── helpers ─────────────────────────────────────────────────────── */
 
@@ -35,7 +42,7 @@ const ARC_START_ANGLE = 90 + (360 - ARC_DEGREES) / 2; // 150°
 function CircularProgress({ value, color = '#8be9fd', icon: Icon, label }) {
     const progress = (Math.min(value, 100) / 100) * ARC_LENGTH;
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', width: 88, overflow: 'visible' }}>
             <div style={{ position: 'relative', width: 88, height: 88 }}>
                 <svg width="88" height="88" viewBox="0 0 88 88" style={{ display: 'block' }}>
                     {/* background arc */}
@@ -70,8 +77,74 @@ function CircularProgress({ value, color = '#8be9fd', icon: Icon, label }) {
                     {Icon && <Icon size={32} strokeWidth={1.5} />}
                 </div>
             </div>
-            {label && <p className="vitrine-info-label">{label}</p>}
+            {label && <p className="vitrine-progress-label">{label}</p>}
         </div >
+    );
+}
+
+/* ── weather icons ───────────────────────────────────────────────── */
+
+const WEATHER_ICON_MAP = {
+    0: IconSun,
+    1: IconSunHigh,
+    2: IconCloud,
+    3: IconCloud,
+    45: IconMist,
+    48: IconMist,
+    51: IconCloudRain,
+    53: IconCloudRain,
+    55: IconCloudRain,
+    56: IconCloudRain,
+    57: IconCloudRain,
+    61: IconCloudRain,
+    63: IconCloudRain,
+    65: IconCloudRain,
+    66: IconCloudRain,
+    67: IconCloudRain,
+    71: IconCloudSnow,
+    73: IconCloudSnow,
+    75: IconCloudSnow,
+    77: IconSnowflake,
+    80: IconCloudRain,
+    81: IconCloudRain,
+    82: IconCloudRain,
+    85: IconCloudSnow,
+    86: IconCloudSnow,
+    95: IconCloudStorm,
+    96: IconCloudBolt,
+    99: IconCloudBolt,
+};
+
+/* ── weather block ───────────────────────────────────────────────── */
+
+function WeatherBlock({ city, weather, error, unit, isRight }) {
+    const symbol = unit === 'fahrenheit' ? '°F' : '°C';
+    const align = isRight ? 'flex-end' : 'flex-start';
+
+    if (error)    return (
+        <div className="vitrine-weather" style={{ flexDirection: 'column', alignItems: align }}>
+            <IconCloudOff size={32} strokeWidth={1.5} />
+            <p>Weather unavailable</p>
+        </div>
+    );
+    if (!weather) return (
+        <div className="vitrine-weather" style={{ flexDirection: 'column', alignItems: align }}>
+            <IconLoader2 size={32} strokeWidth={1.5} />
+            <p>Loading weather…</p>
+        </div>
+    );
+
+    const WeatherIcon = WEATHER_ICON_MAP[weather.code] ?? IconCloud;
+
+    return (
+        <div className="vitrine-weather" style={{ alignItems: align }}>
+            <WeatherIcon size={32} strokeWidth={1.5} />
+            <p>
+                Today weather in {city}<br />
+                is {weather.description} with temperature {weather.temperature}{symbol}<br />
+                it feels like {weather.feelsLike}{symbol}, and humidity is {weather.humidity}%
+            </p>
+        </div>
     );
 }
 
@@ -79,12 +152,17 @@ function CircularProgress({ value, color = '#8be9fd', icon: Icon, label }) {
 
 export default function App() {
     const info = useSystemInfo();
+    const settings = useSettings();
+    const { weather, error: weatherError } = useWeather({
+        enabled: settings.showWeather,
+        city: settings.weatherCity,
+        unit: settings.temperatureUnit,
+    });
 
     if (!info) {
         return (<></>);
     }
 
-    const settings = useSettings();
     const { cpu, memory, battery } = info;
     const memPct = pct(memory.used, memory.total);
     const accentColor = settings.accentColor;
@@ -109,7 +187,16 @@ export default function App() {
                 {month}<br />
                 {hours.toString().padStart(2, '0')}:<span style={{ color: accentColor }}>{minutes.toString().padStart(2, '0')}</span><br />
             </p>
-            <div className="vitrine-info" style={{ justifyContent: isRight ? 'flex-end' : 'flex-start' }}>
+            {settings.showWeather && (
+                <WeatherBlock
+                    city={settings.weatherCity}
+                    weather={weather}
+                    error={weatherError}
+                    unit={settings.temperatureUnit}
+                    isRight={isRight}
+                />
+            )}
+            <div className="vitrine-stats" style={{ justifyContent: isRight ? 'flex-end' : 'flex-start' }}>
                 <CircularProgress value={cpu.usage} color={accentColor} icon={IconCpu} label="CPU" />
                 <CircularProgress value={memPct} color={accentColor} icon={IconBlocks} label="RAM" />
                 {battery.hasBattery && settings.showBattery && (
@@ -123,7 +210,7 @@ export default function App() {
                                         battery.level > 20 ? IconBattery1 :
                                             IconBattery
                         }
-                        label={battery.charging ? 'Charging' : 'Battery'}
+                        label="Battery"
                     />
                 )}
             </div>
