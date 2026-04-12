@@ -8,6 +8,7 @@
 
 .vitrine-container {
     position: fixed;
+    width: 100%;
     box-sizing: border-box;
     padding: 48px;
     pointer-events: none;
@@ -31,7 +32,6 @@
 
 .vitrine-info-label {
     font-size: 20px;
-    color: #f8f8f2;
     text-transform: uppercase;
     margin-top: -16px;
 }

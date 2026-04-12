@@ -1,8 +1,7 @@
 import React from 'react';
 import { IconBattery, IconBattery1, IconBattery2, IconBattery3, IconBattery4, IconBatteryCharging, IconCpu, IconBlocks } from '@tabler/icons-react';
 import { useSystemInfo } from './useSystemInfo';
-
-const ACCENT_COLOR = '#40C4FF';
+import { useSettings } from './useSettings';
 
 /* ── helpers ─────────────────────────────────────────────────────── */
 
@@ -85,8 +84,13 @@ export default function App() {
         return (<></>);
     }
 
+    const settings = useSettings();
     const { cpu, memory, battery } = info;
     const memPct = pct(memory.used, memory.total);
+    const accentColor = settings.accentColor;
+    const isRight = settings.alignment === 'right';
+    const textAlign = isRight ? 'end' : 'start';
+    const textColor = settings.theme === 'light' ? '#212121' : '#f8f8f2';
 
     const now = new Date();
     const year = now.getFullYear();
@@ -97,21 +101,21 @@ export default function App() {
     const minutes = now.getMinutes();
 
     return (
-        <div className="vitrine-container">
+        <div className="vitrine-container" style={{ textAlign, color: textColor }}>
             <p className="vitrine-title">
                 {year}<br />
                 {weekday}<br />
                 {day}<br />
                 {month}<br />
-                {hours.toString().padStart(2, '0')}:<span style={{ color: ACCENT_COLOR }}>{minutes.toString().padStart(2, '0')}</span><br />
+                {hours.toString().padStart(2, '0')}:<span style={{ color: accentColor }}>{minutes.toString().padStart(2, '0')}</span><br />
             </p>
-            <div className="vitrine-info">
-                <CircularProgress value={cpu.usage} color={ACCENT_COLOR} icon={IconCpu} label="CPU" />
-                <CircularProgress value={memPct} color={ACCENT_COLOR} icon={IconBlocks} label="RAM" />
-                {battery.hasBattery && (
+            <div className="vitrine-info" style={{ justifyContent: isRight ? 'flex-end' : 'flex-start' }}>
+                <CircularProgress value={cpu.usage} color={accentColor} icon={IconCpu} label="CPU" />
+                <CircularProgress value={memPct} color={accentColor} icon={IconBlocks} label="RAM" />
+                {battery.hasBattery && settings.showBattery && (
                     <CircularProgress
                         value={battery.level}
-                        color={ACCENT_COLOR}
+                        color={accentColor}
                         icon={battery.charging ? IconBatteryCharging :
                             battery.level > 80 ? IconBattery4 :
                                 battery.level > 60 ? IconBattery3 :

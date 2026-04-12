@@ -2,6 +2,8 @@
 
 A theme for [Vitrine](https://github.com/felixstrobel/vitrine), inspired by [Sargas](https://www.deviantart.com/zren/art/Conky-Sargas-601690886), a theme for [Conky](https://github.com/brndnmtthws/conky).
 
+![Theme Preview](.github/assets/preview.png)
+
 ## Features
 
 - Clock with date, weekday, month and year

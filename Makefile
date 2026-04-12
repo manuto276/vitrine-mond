@@ -11,6 +11,6 @@ build:
 	docker build -t $(IMAGE) .
 	docker run --rm -v $(PWD):/app $(IMAGE) sh -c "\
 		npm run build && \
-		cp theme.json dist/ && \
+		cp theme.json settings.definitions.json settings.json dist/ && \
 		cd dist && zip ../vitrine-serbas-$(VERSION).zip * && \
 		chown -R $(shell id -u):$(shell id -g) /app/dist /app/vitrine-serbas-$(VERSION).zip"

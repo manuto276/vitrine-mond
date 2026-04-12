@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Appearance",
+    "settings": {
+      "theme": {
+        "type": "string",
+        "default": "dark",
+        "label": "Theme",
+        "description": "Color scheme of the panel",
+        "options": [
+          { "value": "dark", "label": "Dark" },
+          { "value": "light", "label": "Light" }
+        ]
+      },
+      "accentColor": {
+        "type": "string",
+        "default": "#40C4FF",
+        "label": "Accent Color",
+        "description": "Color used for gauge arcs and highlighted clock text"
+      },
+      "alignment": {
+        "type": "string",
+        "default": "left",
+        "label": "Alignment",
+        "description": "Horizontal alignment of the panel content",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "right", "label": "Right" }
+        ]
+      }
+    }
+  },
+  {
+    "title": "Gauges",
+    "settings": {
+      "showBattery": {
+        "type": "boolean",
+        "default": true,
+        "label": "Show Battery",
+        "description": "Display the battery gauge (only visible if a battery is detected)"
+      }
+    }
+  }
+]
