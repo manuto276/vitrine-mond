@@ -1,7 +1,7 @@
 {
-  "name": "Serbas",
-  "description": "Classic Conky-style system monitor",
+  "name": "Mond",
+  "description": "Minimal clock inspired by Mond for Rainmeter",
   "entry": "theme.js",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "author": "Emanuele Frascella"
 }

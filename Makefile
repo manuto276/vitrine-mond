@@ -1,5 +1,5 @@
-IMAGE = vitrine-serbas
-VERSION = 1.2.0
+IMAGE = vitrine-mond
+VERSION = 1.0.0
 
 .PHONY: install build
 
@@ -12,5 +12,5 @@ build:
 	docker run --rm -v $(PWD):/app $(IMAGE) sh -c "\
 		npm run build && \
 		cp theme.json settings.definitions.json settings.json dist/ && \
-		cd dist && zip ../vitrine-serbas-$(VERSION).zip * && \
-		chown -R $(shell id -u):$(shell id -g) /app/dist /app/vitrine-serbas-$(VERSION).zip"
+		cd dist && zip ../vitrine-mond-$(VERSION).zip * && \
+		chown -R $(shell id -u):$(shell id -g) /app/dist /app/vitrine-mond-$(VERSION).zip"

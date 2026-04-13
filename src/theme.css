@@ -1,17 +1,15 @@
-/* ── Vitrine Default Theme — Conky-inspired, Dracula palette ───── */
-
-/* Typescale: 1.414 (Augmented Fourth) */
+/* ── Vitrine Mond Theme — inspired by Mond for Rainmeter ─────────── */
 
 @font-face {
-    font-family: "Bebas Neue";
-    src: url('./assets/fonts/BebasNeue-Regular.ttf') format('truetype');
+    font-family: "Anurati";
+    src: url('./assets/fonts/Anurati-Regular.otf') format('opentype');
     font-weight: normal;
 }
 
 @font-face {
-    font-family: "Montserrat";
-    src: url('./assets/fonts/Montserrat-Regular.ttf') format('truetype');
-    font-weight: normal;
+    font-family: "Fira Sans";
+    src: url('./assets/fonts/FiraSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
 }
 
 :root {
@@ -19,62 +17,36 @@
     line-height: 1.2;
 }
 
-.vitrine-container {
-    position: fixed;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 3rem;
-    pointer-events: none;
-    font-size: 1rem;
-    color: #f8f8f2;
-    user-select: none;
-}
-
-.vitrine-title {
-    font-size: 5.653rem;
-    /* 90px */
-    text-transform: uppercase;
-    line-height: 0.9;
-    font-family: "Bebas Neue", sans-serif;
-}
-
-.vitrine-stats {
+.mond-container {
     display: flex;
-    flex-wrap: row;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    font-family: "Bebas Neue", sans-serif;
-}
-
-.vitrine-progress-label {
-    font-size: 1rem;
-    text-transform: uppercase;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    margin: 0;
-    padding: 0;
-    white-space: nowrap;
-}
-
-.vitrine-weather {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 1rem;
-    margin-top: 1rem;
-    font-family: "Montserrat", sans-serif;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     flex-direction: column;
+    align-items: center;
+    height: 100dvh;
+    width: 100dvw;
 }
 
-.vitrine-weather p {
+.mond-day {
+    font-family: "Anurati", sans-serif;
+    font-size: 5.653rem;
     margin: 0;
-    line-height: 1.5;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    margin-top: 8rem;
 }
 
-.vitrine-weather-last-updated {
-    font-size: 0.707rem;
+.mond-date {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 1.414rem;
+    margin: 1rem 0 0;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.mond-time {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 1.414rem;
+    margin: 2rem 0 0;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
 }
