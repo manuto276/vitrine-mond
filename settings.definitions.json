@@ -1,7 +1,17 @@
 [
   {
-    "title": "Display",
+    "title": "Appearance",
     "settings": {
+      "theme": {
+        "type": "string",
+        "default": "dark",
+        "label": "Theme",
+        "description": "Color scheme of the panel",
+        "options": [
+          { "value": "dark", "label": "Dark" },
+          { "value": "light", "label": "Light" }
+        ]
+      },
       "showDate": {
         "type": "boolean",
         "default": true,
@@ -13,15 +23,34 @@
         "default": true,
         "label": "Show Time",
         "description": "Display the current time"
+      }
+    }
+  },
+  {
+    "title": "Weather",
+    "settings": {
+      "showWeather": {
+        "type": "boolean",
+        "default": false,
+        "label": "Show Weather",
+        "description": "Display current weather conditions"
       },
-      "theme": {
+      "weatherCity": {
         "type": "string",
-        "default": "dark",
-        "label": "Theme",
-        "description": "Color scheme of the panel",
+        "default": "",
+        "label": "City",
+        "description": "City name used to fetch weather data",
+        "visibleWhen": { "key": "showWeather", "value": true }
+      },
+      "temperatureUnit": {
+        "type": "string",
+        "default": "celsius",
+        "label": "Temperature Unit",
+        "description": "Unit used to display temperatures",
+        "visibleWhen": { "key": "showWeather", "value": true },
         "options": [
-          { "value": "dark", "label": "Dark" },
-          { "value": "light", "label": "Light" }
+          { "value": "celsius", "label": "Celsius (°C)" },
+          { "value": "fahrenheit", "label": "Fahrenheit (°F)" }
         ]
       }
     }

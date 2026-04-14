@@ -1,5 +1,8 @@
 {
   "showDate": true,
   "showTime": true,
-  "theme": "dark"
+  "theme": "dark",
+  "showWeather": false,
+  "weatherCity": "",
+  "temperatureUnit": "celsius"
 }

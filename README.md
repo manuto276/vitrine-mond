@@ -6,7 +6,21 @@ A theme for [Vitrine](https://github.com/felixstrobel/vitrine), inspired by [Mon
 
 ## Features
 
-- Clock with date, weekday, month and year
+- Day of the week in large decorative type (Anurati)
+- Date and time display (Fira Sans)
+- Optional weather conditions via [Open-Meteo](https://open-meteo.com/) (no API key required)
+- Dark and light theme
+
+## Settings
+
+| Setting | Type | Default | Description |
+|---|---|---|---|
+| `theme` | string | `dark` | Color scheme — `dark` or `light` |
+| `showDate` | boolean | `true` | Show the day of the week and date |
+| `showTime` | boolean | `true` | Show the current time |
+| `showWeather` | boolean | `false` | Show current weather conditions |
+| `weatherCity` | string | — | City used to fetch weather data |
+| `temperatureUnit` | string | `celsius` | `celsius` or `fahrenheit` |
 
 ## Build
 

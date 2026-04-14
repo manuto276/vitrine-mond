@@ -8,6 +8,12 @@
 
 @font-face {
     font-family: "Fira Sans";
+    src: url('./assets/fonts/FiraSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Fira Sans";
     src: url('./assets/fonts/FiraSans-SemiBold.ttf') format('truetype');
     font-weight: 600;
 }
@@ -18,11 +24,17 @@
 }
 
 .mond-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative;
     height: 100dvh;
     width: 100dvw;
+}
+
+.mond-date-container {
+    position: absolute;
+    top: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
 }
 
 .mond-day {
@@ -31,11 +43,11 @@
     margin: 0;
     line-height: 1;
     letter-spacing: 0.08em;
-    margin-top: 8rem;
 }
 
 .mond-date {
     font-family: "Fira Sans", sans-serif;
+    font-weight: 600;
     font-size: 1.414rem;
     margin: 1rem 0 0;
     letter-spacing: 0.12em;
@@ -45,8 +57,37 @@
 
 .mond-time {
     font-family: "Fira Sans", sans-serif;
+    font-weight: 600;
     font-size: 1.414rem;
     margin: 2rem 0 0;
     letter-spacing: 0.12em;
     opacity: 0.85;
+}
+
+.mond-weather-container {
+    position: absolute;
+    bottom: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: row;
+    min-height: 6rem;
+    gap: 1rem;
+    align-items: flex-start;
+
+    font-family: "Fira Sans", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+}
+
+.mond-weather-container p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.707rem;
+}
+
+.mond-weather-container .mond-weather-last-updated {
+    font-size: 0.707rem;
+    margin-top: 0.5rem;
 }
